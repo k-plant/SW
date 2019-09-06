@@ -1,0 +1,113 @@
+import java.util.*;
+import java.io.*;
+
+public class 택배 {
+
+	static BufferedReader br;
+	static BufferedWriter bw;
+	static StringTokenizer st;
+	
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("input/택배.txt"));
+		br = new BufferedReader(new InputStreamReader(System.in));
+		bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Edge>[] map = new ArrayList[n+1];
+		for(int i = 0; i < map.length; i++) map[i] = new ArrayList<Edge>();
+		int a, b, t;
+		for(int i = 0; i < m; i++) {
+			st = new StringTokenizer(br.readLine());
+			a = Integer.parseInt(st.nextToken());
+			b = Integer.parseInt(st.nextToken());
+			t = Integer.parseInt(st.nextToken());
+			
+			map[a].add(new Edge(b, t));
+			map[b].add(new Edge(a, t));
+		}
+
+		PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
+//		PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new EdgeComp());
+//		PriorityQueue<Edge> pq = new PriorityQueue<Edge>(
+//				(Edge x, Edge y)->Integer.compare(x.cost,  y.cost));
+		int[] init = new int[n+1];
+		int[] dist = new int[n+1];
+		boolean[] visited = new boolean[n+1];
+		Edge here;
+		for(int i = 1; i <= n; i++) {
+			Arrays.fill(init, 0);
+			Arrays.fill(dist, Integer.MAX_VALUE);
+			Arrays.fill(visited, false);
+			pq.clear();
+			
+			pq.add(new Edge(i, 0));
+			dist[i] = 0;
+			while(!pq.isEmpty()) {
+				here = pq.poll();
+				if(visited[here.num]) continue;
+				init[here.num] = here.from; 
+				visited[here.num] = true;
+				for(Edge next : map[here.num]) {
+					if(!visited[next.num] && dist[next.num] > dist[here.num] + next.cost) {
+						if(here.from == 0) {
+							next.from = next.num;
+						} else {
+							next.from = here.from;
+						}
+						pq.offer(next);
+						dist[next.num] = dist[here.num] + next.cost;
+					}
+				}
+			}
+			
+//			bw.write(Arrays.toString(dist) + "\n");
+//			bw.write(Arrays.toString(init) + "\n");
+			for(int j = 1; j <= n; j++) {
+				if(j == i) bw.write("- ");
+				else bw.write(init[j] + " ");
+			}
+			bw.write("\n");
+			
+		}
+		
+		
+		
+		
+		br.close();
+		bw.flush();
+		bw.close();
+	}
+
+	static class Edge implements Comparable<Edge> {
+		int from = 0;
+		int num;
+		int cost;
+		
+		Edge(int num, int cost) {
+			this.num = num;
+			this.cost = cost;
+		}
+		
+		@Override
+		public int compareTo(Edge o) {
+			return this.cost > o.cost ? 1 : -1;
+		}
+	}
+
+}
+
+//class EdgeComp implements Comparator<Edge> {
+//
+//	@Override
+//	public int compare(Edge o1, Edge o2) {
+//		if(o1.cost > o2.cost) return 1;
+//		if(o1.cost < o2.cost) return -1;
+//		return 0;
+//	}
+//	
+//}
