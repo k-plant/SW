@@ -47,9 +47,10 @@ public class 匙飘况农_汗备 {
 			
 			for(Edge next : map[here.num]) {
 				if(!visited[next.num] && dist[next.num] > dist[here.num] + next.cost) {
-					next.from = here.num;
-					pq.offer(next);
-					dist[next.num] = dist[here.num] + next.cost;
+//					next.from = here.num;
+                    dist[next.num] = dist[here.num] + next.cost;
+					pq.offer(new Edge(next.num, dist[next.num], here.num));
+//					pq.offer(new Edge(next.num, next.cost, here.num));
 				}
 			}
 		}
@@ -62,20 +63,26 @@ public class 匙飘况农_汗备 {
 		bw.close();
 	}
 
+	static class Edge implements Comparable<Edge> {
+		int from;
+		int num;
+		int cost;
+		
+		Edge(int num, int cost) {
+			this.num = num;
+			this.cost = cost;
+		}
+		
+		Edge(int num, int cost, int from) {
+			this.num = num;
+			this.cost = cost;
+			this.from = from;
+		}
+		
+		@Override
+		public int compareTo(Edge o) {
+			return this.cost > o.cost ? 1 : -1;
+		}
+	}
 }
 
-class Edge implements Comparable<Edge> {
-	int from;
-	int num;
-	int cost;
-	
-	Edge(int num, int cost) {
-		this.num = num;
-		this.cost = cost;
-	}
-	
-	@Override
-	public int compareTo(Edge o) {
-		return this.cost > o.cost ? 1 : -1;
-	}
-}
