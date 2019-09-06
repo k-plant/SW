@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class 匙飘况农_汗备 {
+public class 雱ろ姼鞗岉伂_氤店惮 {
 
 	static BufferedReader br;
 	static BufferedWriter bw;
@@ -9,7 +9,7 @@ public class 匙飘况农_汗备 {
 	
 	public static void main(String[] args) throws Exception {
 
-		System.setIn(new FileInputStream("input/匙飘况农_汗备.txt"));
+		System.setIn(new FileInputStream("input/雱ろ姼鞗岉伂_氤店惮.txt"));
 		br = new BufferedReader(new InputStreamReader(System.in));
 		bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		

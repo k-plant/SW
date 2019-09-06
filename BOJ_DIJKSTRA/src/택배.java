@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ≈√πË {
+public class ÌÉùÎ∞∞ {
 
 	static BufferedReader br;
 	static BufferedWriter bw;
@@ -9,7 +9,7 @@ public class ≈√πË {
 	
 	public static void main(String[] args) throws Exception {
 
-		System.setIn(new FileInputStream("input/≈√πË.txt"));
+		System.setIn(new FileInputStream("input/ÌÉùÎ∞∞.txt"));
 		br = new BufferedReader(new InputStreamReader(System.in));
 		bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
@@ -75,24 +75,23 @@ public class ≈√πË {
 		bw.flush();
 		bw.close();
 	}
-	
-}
 
-class EdgeComp implements Comparator<Edge> {
-	@Override
-	public int compare(Edge o1, Edge o2) {
-		if(o1.cost > o2.cost) return 1;
-		if(o1.cost < o2.cost) return -1;
-		return 0;
+	static class EdgeComp implements Comparator<Edge> {
+		@Override
+		public int compare(Edge o1, Edge o2) {
+			if(o1.cost > o2.cost) return 1;
+			if(o1.cost < o2.cost) return -1;
+			return 0;
+		}
+		
 	}
-	
-}
 
-class Edge {
-	int num;
-	int cost;
-	Edge(int num, int cost) {
-		this.num = num;
-		this.cost = cost;
+	static class Edge {
+		int num;
+		int cost;
+		Edge(int num, int cost) {
+			this.num = num;
+			this.cost = cost;
+		}
 	}
 }
